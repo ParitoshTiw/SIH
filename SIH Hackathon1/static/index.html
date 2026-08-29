@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b5d43" />
+    <title>KrishiSetu — From farm, fairly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQrtRPs0zoymYgR7Jx5v3Cxc0P2A8Q0=" crossorigin="" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="KrishiSetu home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>krishi<span>setu</span></span>
+        </a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#marketplace" data-i18n="navMarket">Marketplace</a>
+          <a href="#intelligence" data-i18n="navPrices">Price intelligence</a>
+          <a href="#logistics" data-i18n="navLogistics">Logistics</a>
+          <a href="#impact" data-i18n="navImpact">Impact</a>
+        </nav>
+        <div class="header-actions">
+          <button class="language-control" id="languageButton" title="Change language"><span class="globe">◎</span><span id="languageLabel">EN</span></button>
+          <button class="location-control" title="Deliver to Pune"><span>⌖</span><span class="desktop-only">Pune</span></button>
+          <button class="cart-button" id="cartButton" aria-label="View shopping cart"><span>⌑</span><b id="cartCount">0</b></button>
+          <button class="profile-button" title="Farmer / buyer profile">AS</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="home">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span><span data-i18n="eyebrow">DIRECT FARM NETWORK</span></p>
+            <h1 data-i18n="heroTitle">Good food travels <em>fairly.</em></h1>
+            <p class="hero-lede" data-i18n="heroLede">Buy directly from verified farmers and FPOs. Better earnings at the farm; fresher food at your door.</p>
+            <div class="hero-buttons">
+              <a href="#marketplace" class="button button-primary" data-i18n="exploreProduce">Explore produce <span>→</span></a>
+              <button class="text-button" id="openListing" data-i18n="listHarvest">List your harvest <span>↗</span></button>
+            </div>
+            <div class="hero-proof">
+              <div class="avatar-stack" aria-hidden="true"><b>SD</b><b>MR</b><b>VP</b><b>+</b></div>
+              <p><strong>12,400+</strong> <span data-i18n="farmersTogether">farmers growing with us</span></p>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Farm to home supply route illustration">
+            <div class="sun"></div><div class="cloud cloud-a"></div><div class="cloud cloud-b"></div>
+            <div class="hill hill-back"></div><div class="hill hill-front"></div>
+            <div class="farm-card"><span class="field-lines"></span><span class="barn"><i></i></span><span class="tree tree-one"></span><span class="tree tree-two"></span></div>
+            <div class="route-line"><i class="route-dot farm-dot">●</i><i class="route-dot hub-dot">●</i><i class="route-dot home-dot">●</i></div>
+            <div class="route-label label-farm">Farm</div><div class="route-label label-hub">Hub</div><div class="route-label label-home">You</div>
+            <div class="produce-crate"><span>🥬</span><span>🍅</span><span>🌾</span></div>
+            <div class="hero-stat stat-one"><span class="stat-icon">⌁</span><p><b>18%</b><small data-i18n="lessFoodMiles">fewer food miles</small></p></div>
+            <div class="hero-stat stat-two"><span class="stat-icon">₹</span><p><b>+24%</b><small data-i18n="farmerEarns">farmer earns</small></p></div>
+          </div>
+        </section>
+
+        <section class="trust-strip">
+          <div><span class="trust-icon">✓</span><p><b data-i18n="trustVerified">Verified at source</b><small data-i18n="trustVerifiedDesc">Know who grows your food</small></p></div>
+          <div><span class="trust-icon">⌁</span><p><b data-i18n="trustPrices">Transparent prices</b><small data-i18n="trustPricesDesc">See exactly where your money goes</small></p></div>
+          <div><span class="trust-icon">♧</span><p><b data-i18n="trustDelivery">Smarter delivery</b><small data-i18n="trustDeliveryDesc">Grouped routes, lower emissions</small></p></div>
+        </section>
+
+        <section class="section marketplace" id="marketplace">
+          <div class="section-heading split-heading">
+            <div><p class="eyebrow"><span></span><span data-i18n="todaysHarvest">TODAY'S HARVEST</span></p><h2 data-i18n="pickedForYou">Picked for you, <em>not warehouses.</em></h2></div>
+            <button class="text-button all-produce" data-i18n="viewAll">View all produce <span>→</span></button>
+          </div>
+          <div class="market-toolbar">
+            <div class="category-pills" id="categoryPills">
+              <button class="active" data-category="All" data-i18n="all">All</button><button data-category="Vegetables" data-i18n="vegetables">Vegetables</button><button data-category="Fruits" data-i18n="fruits">Fruits</button><button data-category="Grains" data-i18n="grains">Grains</button><button data-category="Pulses" data-i18n="pulses">Pulses</button>
+            </div>
+            <label class="search-box"><span>⌕</span><input id="productSearch" type="search" data-i18n-placeholder="searchProduce" placeholder="Search produce, farmer…" /></label>
+          </div>
+          <div class="products-grid" id="productsGrid" aria-live="polite"><div class="loading-card">Loading today's harvest…</div></div>
+        </section>
+
+        <section class="section intelligence" id="intelligence">
+          <div class="section-heading"><p class="eyebrow"><span></span><span data-i18n="priceIntelligence">PRICE INTELLIGENCE</span></p><h2 data-i18n="knowBeforeYouBuy">Know the price <em>before</em> you buy.</h2><p class="heading-note" data-i18n="priceNote">Live market context and direct-price savings, made easy to understand.</p></div>
+          <div class="intelligence-layout">
+            <article class="price-card glass-card">
+              <div class="card-title-row"><div><p class="kicker" data-i18n="marketSignal">MARKET SIGNAL</p><h3 id="marketCropTitle">Tomato</h3></div><span class="data-badge" id="upagBadge">UPAg snapshot</span></div>
+              <div class="market-price"><span>₹</span><b id="marketPrice">32</b><small id="marketUnit">/ kg</small></div>
+              <div class="market-trend down" id="marketTrend">↘ 8.6% lower than last week</div>
+              <p class="market-insight" id="marketInsight">Recent arrivals are improving local availability.</p>
+              <a class="source-link" id="upagLink" href="https://upag.gov.in/" target="_blank" rel="noreferrer">View official UPAg source ↗</a>
+            </article>
+            <article class="trend-card">
+              <div class="trend-top"><div><p class="kicker" data-i18n="consumerPrice">CONSUMER PRICE TRACKER</p><h3 data-i18n="directVsRetail">Direct vs retail price</h3></div><select id="cropSelector" aria-label="Select crop price chart"></select></div>
+              <div class="chart-legend"><span><i class="legend-direct"></i><span data-i18n="directFarm">Direct farm price</span></span><span><i class="legend-retail"></i><span data-i18n="retailPrice">Typical retail price</span></span></div>
+              <div class="chart-wrap"><svg id="priceChart" viewBox="0 0 640 250" role="img" aria-label="Direct and retail price trend"></svg></div>
+              <div class="savings-bar"><span data-i18n="yourSaving">Your potential saving today</span><b id="savingsValue">33% less</b></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section logistics-section" id="logistics">
+          <div class="section-heading split-heading"><div><p class="eyebrow"><span></span><span data-i18n="smartLogistics">SMART LOGISTICS</span></p><h2 data-i18n="oneRouteMoreGood">One route. <em>More good.</em></h2></div><p class="heading-note logistics-note" data-i18n="logisticsNote">Our delivery engine groups nearby orders and lets drivers choose the fastest OSM-based route.</p></div>
+          <div class="logistics-layout">
+            <div class="map-frame"><div id="logisticsMap" aria-label="OpenStreetMap delivery route"></div><div class="map-overlay"><span class="live-pulse"></span><span data-i18n="routeLive">Route planning live</span></div><div class="map-attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors</div></div>
+            <aside class="route-panel">
+              <div class="route-panel-title"><p class="kicker" data-i18n="todaysCluster">TODAY'S CLUSTER</p><span class="cluster-chip">● <span data-i18n="optimised">Optimised</span></span></div>
+              <div class="route-stops" id="routeStops"><div class="route-stop"><i class="stop-origin"></i><div><b>Nashik Harvest Hub</b><small>Collection • 06:30</small></div></div><div class="route-stop"><i class="stop-mid"></i><div><b>Pune Fresh Centre</b><small>Sort & consolidate • 09:45</small></div></div><div class="route-stop"><i class="stop-end"></i><div><b>Neighbourhood drops</b><small>Last mile • 11:10</small></div></div></div>
+              <div class="route-metrics"><div><small data-i18n="routeDistance">ROUTE DISTANCE</small><b id="routeDistance">—</b></div><div><small data-i18n="arrivalTime">ARRIVAL TIME</small><b id="routeTime">—</b></div><div><small data-i18n="co2Saved">CO₂ SAVED</small><b id="co2Saved">—</b></div></div>
+              <button class="button button-dark full-width" id="optimiseRoute"><span data-i18n="optimiseRoute">Optimise delivery route</span> <span>→</span></button>
+              <p class="route-helper" id="routeHelper" data-i18n="routeHelper">Groups 38 orders into one fresh delivery run.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="impact" id="impact">
+          <div class="impact-copy"><p class="eyebrow"><span></span><span data-i18n="sharedValue">SHARED VALUE</span></p><h2 data-i18n="fairerSystem">A fairer food system<br />starts with a <em>shorter chain.</em></h2><p data-i18n="impactText">KrishiSetu replaces opaque layers with clear prices, coordinated logistics, and decisions powered by agricultural market signals.</p></div>
+          <div class="impact-stats"><div><b>₹18.6L</b><span data-i18n="paidToFarmers">paid directly to farmers</span></div><div><b>31%</b><span data-i18n="consumerSavings">average consumer savings</span></div><div><b>14.2 t</b><span data-i18n="co2Avoided">CO₂ avoided by route clusters</span></div></div>
+        </section>
+      </main>
+
+      <footer><a class="brand" href="#home"><span class="brand-mark"><i></i><i></i><i></i></span><span>krishi<span>setu</span></span></a><p data-i18n="footerText">Built for a more connected Indian food economy.</p><span>SIH 2026 • UPAg-ready • OSM-powered</span></footer>
+    </div>
+
+    <dialog class="modal" id="listingModal">
+      <form method="dialog" class="modal-content listing-modal" id="listingForm">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow"><span></span>FARMER LISTING</p><h2>Share today’s harvest.</h2><p class="modal-lede">Put your crop directly in front of households and bulk buyers.</p>
+        <div class="form-grid">
+          <label>Farmer / FPO name<input name="farmer_name" required placeholder="e.g. Asha Farmer Producer Co." /></label>
+          <label>Farm location<input name="farm_location" required placeholder="Village, District, State" /></label>
+          <label>Crop name<input name="title" required placeholder="e.g. Red Onion" /></label>
+          <label>Category<select name="category"><option>Vegetables</option><option>Fruits</option><option>Grains</option><option>Pulses</option></select></label>
+          <label>Price (₹)<input name="price" type="number" min="1" required placeholder="32" /></label>
+          <label>Typical retail price (₹)<input name="market_price" type="number" min="1" required placeholder="45" /></label>
+          <label>Available quantity<input name="quantity" type="number" min="1" required placeholder="100" /></label>
+          <label>Unit<select name="unit"><option>kg</option><option>dozen</option><option>crate</option><option>quintal</option></select></label>
+          <label>Harvest date<input name="harvest_date" type="date" required /></label>
+          <label class="photo-upload">Crop photo<input name="crop_photo" id="cropPhoto" type="file" accept="image/*" /><span id="photoHint">Upload a clear crop photo <b>＋</b></span></label>
+          <label class="wide">About this lot<textarea name="description" required placeholder="Tell buyers about freshness, grade, or growing practice…"></textarea></label>
+          <label class="check-label wide"><input type="checkbox" name="is_organic" /> <span>This lot follows organic growing practices</span></label>
+        </div>
+        <p class="form-message" id="listingMessage" aria-live="polite"></p><button class="button button-primary full-width" type="submit">Publish crop listing <span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="cartModal">
+      <form method="dialog" class="modal-content cart-modal" id="checkoutForm">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow"><span></span>YOUR BASKET</p><h2>Fresh is on its way.</h2>
+        <div id="cartItems" class="cart-items"><p class="empty-cart">Your basket is waiting for good food.</p></div>
+        <div class="cart-total"><span>Total</span><b id="cartTotal">₹0</b></div>
+        <div class="checkout-fields"><label>Your name<input required name="customer_name" placeholder="Name" /></label><label>Phone<input required name="customer_phone" placeholder="10-digit mobile" /></label><label class="wide">Delivery address<textarea required name="address" placeholder="House, street, locality, city"></textarea></label></div>
+        <fieldset class="payment-options"><legend>Choose payment mode</legend><label><input name="payment_method" type="radio" value="UPI" checked /> <span>UPI</span><small>GPay, PhonePe, BHIM</small></label><label><input name="payment_method" type="radio" value="Card" /> <span>Card</span><small>Debit / credit card</small></label><label><input name="payment_method" type="radio" value="COD" /> <span>Cash on delivery</span><small>Pay after delivery</small></label></fieldset>
+        <p class="form-message" id="checkoutMessage" aria-live="polite"></p><button class="button button-primary full-width" type="submit">Continue to secure payment <span>→</span></button><p class="secure-note">◉ Your payment is handled through a gateway adapter. No card information is stored here.</p>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
